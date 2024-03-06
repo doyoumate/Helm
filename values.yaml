@@ -1,0 +1,47 @@
+env: dev
+controller:
+  api:
+    name: doyoumate-api
+    label: api
+    containerName: doyoumate-api
+    replicas: 1
+    image:
+      name: san06036/doyoumate-api
+      tag: 25af36834c124069a6f8cc997d87826c81788fc6
+  batch:
+    name: doyomate-batch
+    label: batch
+    containerName: doyoumate-batch
+    replicas: 1
+    image:
+      name: san06036/doyoumate-batch
+      tag: 25af36834c124069a6f8cc997d87826c81788fc6
+service:
+  api:
+    name: api-service
+  batch:
+    name: batch-service
+  mongodb:
+    name: mongodb-service
+  redis:
+    name: redis-service
+db:
+  mongodb:
+    name: doyoumate-mongodb
+    replicas: 1
+    label: mongodb
+    storage:
+      name: mongodb-storage
+      accessMode: ReadWriteOnce
+      request: 1Gi
+  redis:
+    name: doyoumate-redis
+    replicas: 1
+    label: redis
+    cpuLimit: 0.1
+    configMap:
+      name: redis-config
+ingress:
+  name: doyoumate-ingress
+  className: nginx
+  annotations:
